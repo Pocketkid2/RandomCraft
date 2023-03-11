@@ -38,8 +38,7 @@ public class RandomCraftPlugin extends JavaPlugin {
 		List<Material> list2;
 
 		// Filter out everything that's not a block or item
-		list1 = list1.stream().filter(m -> m.isItem() && !m.isAir() && m != Material.LIGHT)
-				.collect(Collectors.toList());
+		list1 = list1.stream().filter(m -> m.isItem() && !m.isAir() && m != Material.LIGHT).collect(Collectors.toList());
 		list2 = new ArrayList<>(list1);
 
 		// Shuffle the second list
@@ -86,8 +85,7 @@ public class RandomCraftPlugin extends JavaPlugin {
 			// Convert mappings and apply
 			for (Entry<String, Object> entry : config_string_map.entrySet()) {
 				map.put(Material.matchMaterial(entry.getKey()),
-						entry.getValue() instanceof Material ? (Material) entry.getValue()
-								: Material.matchMaterial((String) entry.getValue()));
+						entry.getValue() instanceof Material ? (Material) entry.getValue() : Material.matchMaterial((String) entry.getValue()));
 			}
 		}
 
@@ -102,8 +100,7 @@ public class RandomCraftPlugin extends JavaPlugin {
 		// Read enabled worlds from config
 		@SuppressWarnings("unchecked")
 		List<String> world_list = (List<String>) getConfig().getList("worlds", new ArrayList<String>());
-		getLogger().info(
-				"Random item mapping is enabled in " + world_list.size() + " worlds: " + String.join(", ", world_list));
+		getLogger().info("Random item mapping is enabled in " + world_list.size() + " worlds: " + String.join(", ", world_list));
 		enabled_worlds = world_list.stream().map(Bukkit::getWorld).collect(Collectors.toList());
 
 		// Make sure the events are registered

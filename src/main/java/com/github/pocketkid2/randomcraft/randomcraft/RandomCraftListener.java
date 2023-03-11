@@ -23,15 +23,15 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 
 	@EventHandler
 	public void onPrepareCraft(PrepareItemCraftEvent event) {
-		if (plugin.getEnabledWorlds().contains(event.getView().getPlayer().getWorld())) {
+		if (plugin.areCraftingRecipesEnabled() && plugin.getEnabledWorlds().contains(event.getView().getPlayer().getWorld())) {
 			ItemStack is = event.getInventory().getResult();
 			if (is != null) {
 				Material newType = plugin.getItemMapping().get(is.getType());
 				if (newType != null) {
 					is.setType(newType);
 				} else {
-					plugin.getLogger().warning("Unable to map type " + is.getType().toString()
-							+ " for crafting at location " + event.getInventory().getLocation().toString());
+					plugin.getLogger().warning("Unable to map type " + is.getType().toString() + " for crafting at location "
+							+ event.getInventory().getLocation().toString());
 				}
 			}
 		}
@@ -39,15 +39,15 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 
 	@EventHandler
 	public void onFurnaceSmelt(FurnaceSmeltEvent event) {
-		if (plugin.getEnabledWorlds().contains(event.getBlock().getWorld())) {
+		if (plugin.isFurnaceSmeltingEnabled() && plugin.getEnabledWorlds().contains(event.getBlock().getWorld())) {
 			ItemStack is = event.getResult();
 			if (is != null) {
 				Material newType = plugin.getItemMapping().get(is.getType());
 				if (newType != null) {
 					is.setType(newType);
 				} else {
-					plugin.getLogger().warning("Unable to map type " + is.getType().toString()
-							+ " for furnace at location " + event.getBlock().getLocation().toString());
+					plugin.getLogger().warning("Unable to map type " + is.getType().toString() + " for furnace at location "
+							+ event.getBlock().getLocation().toString());
 				}
 			}
 		}
@@ -55,7 +55,7 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event) {
-		if (plugin.getEnabledWorlds().contains(event.getEntity().getWorld())) {
+		if (plugin.areEntityDeathDropsEnabled() && plugin.getEnabledWorlds().contains(event.getEntity().getWorld())) {
 			List<ItemStack> drops = event.getDrops();
 			for (ItemStack is : drops) {
 				if (is != null) {
@@ -63,8 +63,8 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 					if (newType != null) {
 						is.setType(newType);
 					} else {
-						plugin.getLogger().warning("Unable to map type " + is.getType().toString()
-								+ " for mob drop at location " + event.getEntity().getLocation().toString());
+						plugin.getLogger().warning("Unable to map type " + is.getType().toString() + " for mob drop at location "
+								+ event.getEntity().getLocation().toString());
 					}
 				}
 			}
@@ -73,7 +73,7 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 
 	@EventHandler
 	public void onEntityDropItem(EntityDropItemEvent event) {
-		if (plugin.getEnabledWorlds().contains(event.getEntity().getWorld())) {
+		if (plugin.areRegularEntityDropsEnabled() && plugin.getEnabledWorlds().contains(event.getEntity().getWorld())) {
 			Item i = event.getItemDrop();
 			if (i != null) {
 				ItemStack is = i.getItemStack();
@@ -83,8 +83,8 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 						is.setType(newType);
 						i.setItemStack(is);
 					} else {
-						plugin.getLogger().warning("Unable to map type " + is.getType().toString()
-								+ " for mob drop at location " + event.getEntity().getLocation().toString());
+						plugin.getLogger().warning("Unable to map type " + is.getType().toString() + " for mob drop at location "
+								+ event.getEntity().getLocation().toString());
 					}
 				}
 			}
@@ -93,7 +93,7 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 
 	@EventHandler
 	public void onBlockDropItem(BlockDropItemEvent event) {
-		if (plugin.getEnabledWorlds().contains(event.getBlock().getWorld())) {
+		if (plugin.areBlockDropsEnabled() && plugin.getEnabledWorlds().contains(event.getBlock().getWorld())) {
 			List<Item> items = event.getItems();
 			for (Item i : items) {
 				if (i != null) {
@@ -104,8 +104,8 @@ public class RandomCraftListener implements Listener, java.net.http.WebSocket.Li
 							is.setType(newType);
 							i.setItemStack(is);
 						} else {
-							plugin.getLogger().warning("Unable to map type " + is.getType().toString()
-									+ " for block drop at location " + event.getBlock().getLocation().toString());
+							plugin.getLogger().warning("Unable to map type " + is.getType().toString() + " for block drop at location "
+									+ event.getBlock().getLocation().toString());
 						}
 					}
 				}
