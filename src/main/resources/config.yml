@@ -1,0 +1,18 @@
+# Which features are enabled?
+crafting-recipes: true
+furnace-smelting: true
+entity-death-drops: true
+regular-entity-drops: true
+block-drops: true
+
+# What worlds is it enabled for?
+worlds:
+  - 'random'
+  - 'random_nether'
+  - 'random_the_end'
+
+# Should we print to the console when generating a new mapping?
+verbose: true
+
+# Here is where the plugin will save the mapping
+mapping:
